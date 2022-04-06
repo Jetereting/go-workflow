@@ -1,5 +1,4 @@
 ### 查询流程定义
-#POST http://localhost:20014/api/v1/workflow/procdef/findAll
 POST http://localhost:20014/api/v1/workflow/procdef/findAll
 
 {"pageSize": 10,"pageIndex": 1}
@@ -7,7 +6,7 @@ POST http://localhost:20014/api/v1/workflow/procdef/findAll
 ### 流程定义
 POST http://localhost:20014/api/v1/workflow/procdef/save
 
-{"userid":"11025","name":"请假B","company":"A公司","resource":{"name":"发起人","type":"start","nodeId":"sid-startevent","childNode":{"type":"route","prevId":"sid-startevent","nodeId":"1649209510062","conditionNodes":[{"name":"条件1","type":"condition","prevId":"1649209510062","nodeId":"1649209510072","properties":{"conditions":[[{"pos":1,"type":"dingtalk_actioner_range_condition","paramKey":"day","paramLabel":"请假天数","key":"le","label":"小于等于","upperBoundEqual":"3"}]]},"childNode":{"name":"审批人","prevId":"1649209510072","nodeId":"1649209550093","type":"approver","properties":{"actionerRules":[{"type":"target_label","labelNames":"主任","needSameDept":1,"labels":0,"isEmpty":false,"memberCount":1,"actType":"or"}]}}},{"name":"条件2","type":"condition","prevId":"1649209510072","nodeId":"1649209510082","properties":{"conditions":[[{"pos":1,"type":"dingtalk_actioner_range_condition","paramKey":"day","paramLabel":"请假天数","key":"gt","label":"大于","lowerBound":"3"}]]},"childNode":{"name":"审批人","prevId":"1649209510082","nodeId":"1649209562655","type":"approver","properties":{"actionerRules":[{"type":"target_label","labelNames":"大主任","labels":0,"isEmpty":false,"memberCount":1,"actType":"or"}]}}}]}}}
+{"userid":"11025","name":"请假B","company":"A公司","resource":{"name":"发起人","type":"start","nodeId":"sid-startevent","childNode":{"type":"route","prevId":"sid-startevent","nodeId":"1649209510062","conditionNodes":[{"name":"条件1","type":"condition","prevId":"1649209510062","nodeId":"1649209510072","properties":{"conditions":[[{"pos":1,"type":"dingtalk_actioner_range_condition","paramKey":"day","paramLabel":"请假天数","key":"le","label":"小于等于","upperBoundEqual":"3"}]]},"childNode":{"name":"审批人","prevId":"1649209510072","nodeId":"1649209550093","type":"approver","properties":{"actionerRules":[{"type":"target_label","labelNames":"主任","needSameDept":1,"isEmpty":false,"memberCount":1,"actType":"or"}]}}},{"name":"条件2","type":"condition","prevId":"1649209510072","nodeId":"1649209510082","properties":{"conditions":[[{"pos":1,"type":"dingtalk_actioner_range_condition","paramKey":"day","paramLabel":"请假天数","key":"gt","label":"大于","lowerBound":"3"}]]},"childNode":{"name":"审批人","prevId":"1649209510082","nodeId":"1649209562655","type":"approver","properties":{"actionerRules":[{"type":"target_label","labelNames":"大主任","isEmpty":false,"memberCount":1,"actType":"or"}]}}}]}}}
 
 <> 2022-04-05T221929.200.txt
 <> 2022-04-05T001831.200.txt
@@ -54,22 +53,10 @@ GET http://localhost:20014/api/v1/workflow/process/findById?id=5
 
 
 ### 查询流程审批人与评论
-GET http://localhost:20014/api/v1/workflow/identitylink/findParticipant?procInstID=6
+GET http://localhost:20014/api/v1/workflow/identitylink/findParticipant?procInstID=1
 
 <> 2022-04-05T215705.200.txt
 <> 2022-04-05T214953.200.txt
-
-
-### 查询我审批的流程
-POST http://localhost:20014/api/v1/workflow/procHistory/findTask
-
-{"userID":"22","company":"A公司","is_finished":true,"pageIndex":1,"pageSize":10}
-
-<> 2022-04-05T215215.200.txt
-<> 2022-04-05T214214.200.txt
-<> 2022-04-05T213440.200.txt
-
-
 
 ### 查询我审批的流程
 GET http://localhost:20014/api/v1/workflow/identitylink/findUserFlow?user_id=22&is_launcher=false
