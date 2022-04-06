@@ -1,0 +1,155 @@
+package controller
+
+import (
+	"fmt"
+	"net/http"
+	"strconv"
+
+	"github.com/mumushuiding/util"
+
+	"go-workflow/workflow-engine/service"
+)
+
+// StartProcessInstance 启动流程
+func StartProcessInstance(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		util.ResponseErr(writer, "只支持Post方法！！Only suppoert Post ")
+		return
+	}
+	var proc = service.ProcessReceiver{}
+	err := util.Body2Struct(request, &proc)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	if len(proc.ProcName) == 0 {
+		util.Response(writer, "流程定义名procName不能为空", false)
+		return
+	}
+	if len(proc.Company) == 0 {
+		util.Response(writer, "用户所在的公司company不能为空", false)
+		return
+	}
+	if len(proc.UserID) == 0 {
+		util.Response(writer, "启动流程的用户userId不能为空", false)
+		return
+	}
+	if len(proc.Username) == 0 {
+		util.Response(writer, "启动流程的用户username不能为空", false)
+		return
+	}
+	if len(proc.Department) == 0 {
+		util.Response(writer, "用户所在部门department不能为空", false)
+		return
+	}
+	id, err := proc.StartProcessInstanceByID(proc.Var)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	util.Response(writer, fmt.Sprintf("%d", id), true)
+}
+
+// FindMyProcInstPageAsJSON FindMyProcInstPageAsJSON
+// 查询到我审批的流程实例
+func FindMyProcInstPageAsJSON(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		util.ResponseErr(writer, "只支持Post方法！！Only suppoert Post ")
+		return
+	}
+	var receiver = service.GetDefaultProcessPageReceiver()
+	err := util.Body2Struct(request, &receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	if len(receiver.UserID) == 0 {
+		util.Response(writer, "用户userID不能为空", false)
+		return
+	}
+	if len(receiver.Company) == 0 {
+		util.Response(writer, "字段 company 不能为空", false)
+		return
+	}
+	result, err := service.FindAllPageAsJSON(receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	fmt.Fprintf(writer, result)
+}
+
+// StartByMyself 我启动的流程
+func StartByMyself(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		util.ResponseErr(writer, "只支持Post方法！！Only suppoert Post ")
+		return
+	}
+	var receiver = service.GetDefaultProcessPageReceiver()
+	err := util.Body2Struct(request, &receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	if len(receiver.UserID) == 0 {
+		util.Response(writer, "用户userID不能为空", false)
+		return
+	}
+	if len(receiver.Company) == 0 {
+		util.Response(writer, "字段 company 不能为空", false)
+		return
+	}
+	result, err := service.StartByMyself(receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	fmt.Fprintf(writer, result)
+}
+
+// FindProcNotify 查询抄送我的流程
+func FindProcNotify(writer http.ResponseWriter, request *http.Request) {
+	if request.Method != "POST" {
+		util.ResponseErr(writer, "只支持POST方法")
+	}
+	var receiver = service.GetDefaultProcessPageReceiver()
+	err := util.Body2Struct(request, &receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	if len(receiver.UserID) == 0 {
+		util.Response(writer, "用户userID不能为空", false)
+		return
+	}
+	if len(receiver.Company) == 0 {
+		util.Response(writer, "字段 company 不能为空", false)
+		return
+	}
+	result, err := service.FindProcNotify(receiver)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	fmt.Fprintf(writer, result)
+}
+
+// FindProcInstByID 根据流程ID查询流程
+func FindProcInstByID(writer http.ResponseWriter, request *http.Request) {
+	request.ParseForm()
+	if len(request.Form["id"]) == 0 {
+		util.ResponseErr(writer, "字段 id 不能为空")
+		return
+	}
+	id, err := strconv.Atoi(request.Form["id"][0])
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	data, err := service.FindProcInstByID(id)
+	if err != nil {
+		util.ResponseErr(writer, err)
+		return
+	}
+	util.Response(writer, data, true)
+}
