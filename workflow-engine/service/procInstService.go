@@ -62,6 +62,15 @@ func FindProcInstByID(id int) (string, error) {
 	return util.ToJSONStr(data)
 }
 
+// FindProcInstByIDs FindProcInstByIDs
+func FindProcInstByIDs(ids []int) (string, error) {
+	data, err := model.FindProcInstByIDs(ids)
+	if err != nil {
+		return "", err
+	}
+	return util.ToJSONStr(data)
+}
+
 // FindAllPageAsJSON FindAllPageAsJSON
 func FindAllPageAsJSON(pr *ProcessPageReceiver) (string, error) {
 	datas, count, err := findAll(pr)

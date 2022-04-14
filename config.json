@@ -4,7 +4,7 @@
   "WriteTimeout": "5",
   "DbLogMode": "true",
   "DbType": "mysql",
-  "DbName": "flow3",
+  "DbName": "flow",
   "DbHost": "36.133.126.155",
   "DbPort": "23306",
   "DbUser": "root",

@@ -76,6 +76,16 @@ func FindProcInstByID(id int) (*ProcInst, error) {
 	return &data, nil
 }
 
+// FindProcInstByIDs FindProcInstByIDs
+func FindProcInstByIDs(ids []int) (*[]*ProcInst, error) {
+	data := make([]*ProcInst, 0)
+	err := db.Model(&ProcInst{}).Where("id in (?)", ids).Find(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
 // FindProcNotify 查询抄送我的流程
 func FindProcNotify(userID, company string, groups []string, pageIndex, pageSize int) ([]*ProcInst, int, error) {
 	var datas []*ProcInst

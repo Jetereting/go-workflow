@@ -139,14 +139,7 @@ func FindParticipantByProcInstID(procInstID int) (string, error) {
 }
 
 // FindUserFlow 查询用户参与的流程
-func FindUserFlow(user_id string, isLauncher bool) (string, error) {
-	datas, err := model.FindUserFlow(user_id, isLauncher)
-	if err != nil {
-		return "", err
-	}
-	str, err := util.ToJSONStr(datas)
-	if err != nil {
-		return "", err
-	}
-	return str, nil
+func FindUserFlow(userID string, isLauncher bool) ([]int, error) {
+	data, err := model.FindUserFlow(userID, isLauncher)
+	return data, err
 }

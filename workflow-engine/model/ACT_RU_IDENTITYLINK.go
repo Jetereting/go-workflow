@@ -98,11 +98,17 @@ func FindUserFlow(userId string, isLauncher bool) (result []int, err error) {
 	var data []struct {
 		ProcInstID int `json:"proc_inst_id"`
 	}
-	step := 1
+
+	dbf := db.Table("identitylink").Select("distinct proc_inst_id").
+		Where("user_id=?", userId)
+
 	if isLauncher {
-		step = 0
+		dbf = dbf.Where("step=0")
+	} else {
+		dbf = dbf.Where("step!=0")
 	}
-	err = db.Table("identitylink").Select("distinct proc_inst_id").Where("user_id=? and step=?", userId, step).Find(&data).Error
+
+	err = dbf.Find(&data).Error
 	for _, v := range data {
 		result = append(result, v.ProcInstID)
 	}

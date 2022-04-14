@@ -24,7 +24,7 @@ POST http://localhost:20014/api/v1/workflow/process/start
 ### 审批
 POST http://localhost:20014/api/v1/workflow/task/complete
 
-{"taskID":18,"pass":"true","userID":"22","username":"王主任","company":"A公司","comment": "拒绝"}
+{"taskID":2,"pass":"true","userID":"22","username":"王主任","company":"A公司","comment": "拒绝"}
 
 <> 2022-04-05T214110.200.txt
 
@@ -47,7 +47,7 @@ POST http://localhost:20014/api/v1/workflow/process/startByMyself
 
 
 ### 查询最终状态
-GET http://localhost:20014/api/v1/workflow/process/findById?id=5
+GET http://localhost:20014/api/v1/workflow/process/findById?id=1
 
 <> 2022-04-05T222007.200.txt
 
