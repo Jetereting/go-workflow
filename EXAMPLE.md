@@ -89,7 +89,7 @@ docker run  -e DbType=mysql -e DbLogMode=false -e DbName=test -e DbHost=localhos
 
   POST参数：
 
-  {"procName":"请假","title":"请假-张三","userId":"11025","department":"技术中心","company":"A公司","var":{"DDHolidayField-J2BWEN12__duration":"8","DDHolidayField-J2BWEN12__options":"年假"}}
+  {"procName":"请假","title":"请假-张三","userId":"11025","department":"技术中心","company":"A公司","var":{"fee":500,"DDHolidayField-J2BWEN12__options":"年假"}}
 
   返回结果：{"data":"1","ok":true}
 
@@ -193,14 +193,12 @@ docker run  -e DbType=mysql -e DbLogMode=false -e DbName=test -e DbHost=localhos
 4.我审批的
 ```
 /api/v1/workflow/identitylink/findUserFlow?user_id=22&is_launcher=false
-{"userID":"22","is_launcher":false}
 ```
 
 
 5.我发起的
 ```
 /api/v1/workflow/identitylink/findUserFlow?user_id=21&is_launcher=true
-{"userID":"22","is_launcher":false}
 ```
 
 6.审批过程
