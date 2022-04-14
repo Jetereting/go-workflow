@@ -46,6 +46,16 @@ func init() {
 
 // LoadConfig LoadConfig
 func LoadConfig() {
+	// 默认config
+	Config.Port = ":8080"
+	Config.ReadTimeout = "5"
+	Config.WriteTimeout = "5"
+	Config.DbLogMode = "true"
+	Config.DbType = "mysql"
+	Config.DbMaxIdleConns = "5"
+	Config.DbMaxOpenConns = "100"
+	Config.RedisCluster = "false"
+	Config.TLSOpen = "false"
 	// 获取配置信息config
 	Config.getConf()
 	// 环境变量覆盖config
@@ -76,7 +86,8 @@ func (c *Configuration) getConf() *Configuration {
 	file, err := os.Open("config.json")
 	if err != nil {
 		log.Printf("cannot open file config.json：%v", err)
-		panic(err)
+		//panic(err)
+		return c
 	}
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(c)
