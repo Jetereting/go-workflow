@@ -17,14 +17,6 @@ import (
 // 配置
 var conf = *config.Config
 
-func crossOrigin(h http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", conf.AccessControlAllowOrigin)
-		w.Header().Set("Access-Control-Allow-Methods", conf.AccessControlAllowMethods)
-		w.Header().Set("Access-Control-Allow-Headers", conf.AccessControlAllowHeaders)
-		h(w, r)
-	}
-}
 func main() {
 	mux := router.Mux
 	// 启动数据库连接
@@ -48,11 +40,7 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	log.Printf("the application start up at %s", server.Addr)
-	if conf.TLSOpen == "true" {
-		err = server.ListenAndServeTLS(conf.TLSCrt, conf.TLSKey)
-	} else {
-		err = server.ListenAndServe()
-	}
+	err = server.ListenAndServe()
 	if err != nil {
 		log.Printf("Server err: %v", err)
 	}

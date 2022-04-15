@@ -11,13 +11,6 @@
   "DbPassword": "ninuo401",
   "DbMaxIdleConns": "5",
   "DbMaxOpenConns": "100",
-  "RedisCluster": "false",
-  "RedisHost": "localhost",
-  "RedisPort": "6379",
-  "RedisPassword": "",
-  "TLSOpen": "false",
-  "TLSCrt": "server.crt",
-  "TLSKey": "server.key",
   "AccessControlAllowOrigin": "*",
   "AccessControlAllowHeaders": "*",
   "AccessControlAllowMethods": "POST, GET, PUT, OPTIONS, DELETE, PATCH"

@@ -23,14 +23,6 @@ type Configuration struct {
 	DbPassword     string
 	DbMaxIdleConns string
 	DbMaxOpenConns string
-	// redis 设置
-	RedisCluster  string
-	RedisHost     string
-	RedisPort     string
-	RedisPassword string
-	TLSOpen       string
-	TLSCrt        string
-	TLSKey        string
 	// 跨域设置
 	AccessControlAllowOrigin  string
 	AccessControlAllowHeaders string
@@ -54,8 +46,6 @@ func LoadConfig() {
 	Config.DbType = "mysql"
 	Config.DbMaxIdleConns = "5"
 	Config.DbMaxOpenConns = "100"
-	Config.RedisCluster = "false"
-	Config.TLSOpen = "false"
 	// 获取配置信息config
 	Config.getConf()
 	// 环境变量覆盖config
