@@ -30,7 +30,7 @@ spec:
       containers:
       - name: workflow
         imagePullPolicy: Always
-        image: registry.cn-hangzhou.aliyuncs.com/mumushuiding/go-workflow
+        image: jetereting/go-workflow
         resources:
           limits:
             memory: "128Mi"

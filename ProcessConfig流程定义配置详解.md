@@ -1,7 +1,7 @@
 # 配置
 整个配置信息参考的是钉钉，钉钉生成的配置信息基本上能用，但是有所精简，只支持 主管审批和角色审批，可以打开钉钉控制平台来生成配置数据
 
-https://github.com/mumushuiding/go-workflow/blob/master/images/processConfig.png
+https://github.com/Jetereting/go-workflow/blob/master/images/processConfig.png
 
 首先配置信息是一个Node对象的嵌套对象
 
